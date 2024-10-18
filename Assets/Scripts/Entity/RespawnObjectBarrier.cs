@@ -10,6 +10,18 @@ public class RespawnObjectBarrier : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
+        if (!onlyRespawnObject && other.gameObject.CompareTag("Player"))
+        {
+            GameObject player = other.gameObject;
+            
+                if (other.gameObject.GetComponent<PlayerSpawn>())
+                {
+                    PlayerSpawn playerSpawn = other.transform.GetComponent<PlayerSpawn>();
+                    playerSpawn.RespawnThisPlayer();
+                }
+            
+        }
+
         if (onlyRespawnObject && other.gameObject.CompareTag("Player")) // only respawn a object and the object touching is not the player tag
         {
             GameObject player = other.gameObject;
@@ -81,14 +93,7 @@ public class RespawnObjectBarrier : MonoBehaviour
             }
         }
 
-        if (other.transform.CompareTag("Player"))
-        {
-            if (other.gameObject.GetComponent<PlayerSpawn>())
-            {
-                PlayerSpawn playerSpawn = other.transform.GetComponent<PlayerSpawn>();
-                playerSpawn.RespawnThisPlayer();
-            }
-        }
+
 
     }
 
